@@ -34,3 +34,26 @@ jobs:
           git add baselines/
           git diff --staged --quiet || git commit -m "Baseline update: $(date +%Y-%m-%d)"
           git push
+
+      - name: Send email with digest
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Competitor Monitor — weekly digest ready (${{ github.run_number }})"
+          to: cbeirne@corasystems.com
+          from: "Cora Competitor Monitor <${{ secrets.MAIL_USERNAME }}>"
+          body: |
+            Your weekly competitor monitor has run.
+
+            View full run: https://github.com/cbbeirne/competitor-monitor-runner/actions/runs/${{ github.run_id }}
+
+            The markdown digest is attached.
+
+            Next run: next Monday 07:00 UTC
+
+            — Cora Competitor Monitor
+          attachments: outputs/*.md
