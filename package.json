@@ -1,9 +1,8 @@
 {
   "name": "competitor-monitor-runner",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Weekly competitor monitor for Cora Systems",
   "main": "scripts/run-monitor.js",
-  "scripts": {
-    "start": "node scripts/run-monitor.js"
-  }
+  "scripts": { "start": "node scripts/run-monitor.js" },
+  "dependencies": { "puppeteer": "^22.0.0" }
 }
